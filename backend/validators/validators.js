@@ -8,17 +8,25 @@ const doctorValidationRules = () => {
 };
 
 const drugValidationRules = () => {
-  return [
-    body("name").not().isEmpty(),
-    body("code").not().isEmpty()
-  ];
+  return [body("name").not().isEmpty(), body("code").not().isEmpty()];
 };
 
 const treatmentValidationRules = () => {
   return [
     body("start").not().isEmpty(),
     body("end").not().isEmpty(),
-    body("doctor").not().isEmpty().isMongoId()
+    body("doctor").not().isEmpty().isMongoId(),
+  ];
+};
+
+const patientValidationRules = () => {
+  return [
+    body("firstName").not().isEmpty(),
+    body("lastName").not().isEmpty(),
+    body("age").not().isEmpty(),
+    body("sex").not().isEmpty(),
+    body("drugs").if(body("drugs").not().isEmpty()).isMongoId(),
+    body("treatments").if(body("treatments").not().isEmpty()).isMongoId(),
   ];
 };
 
@@ -39,5 +47,6 @@ module.exports = {
   doctorValidationRules,
   drugValidationRules,
   treatmentValidationRules,
+  patientValidationRules,
   validate,
 };

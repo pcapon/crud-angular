@@ -42,7 +42,15 @@ exports.add = (req, res) => {
 exports.edit = (req, res) => {
   Treatment.findByIdAndUpdate(req.params.id, req.body)
     .exec()
-    .then((treatment) => res.json(treatment))
+    .then((treatment) => {
+      treatment
+        .populate({ path: "doctor", model: "Doctor" })
+        .execPopulate()
+        .then((docpop) => res.json(docpop))
+        .catch((error) => {
+          res.status(409).json(error);
+        });
+    })
     .catch((error) => {
       res.status(409).json(error);
     });
