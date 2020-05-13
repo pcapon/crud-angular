@@ -14,6 +14,14 @@ const drugValidationRules = () => {
   ];
 };
 
+const treatmentValidationRules = () => {
+  return [
+    body("start").not().isEmpty(),
+    body("end").not().isEmpty(),
+    body("doctor").not().isEmpty().isMongoId()
+  ];
+};
+
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -30,5 +38,6 @@ const validate = (req, res, next) => {
 module.exports = {
   doctorValidationRules,
   drugValidationRules,
+  treatmentValidationRules,
   validate,
 };

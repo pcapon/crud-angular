@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
+const treatmentController = require('../controllers/treatment.controller');
+const { treatmentValidationRules, validate } = require('../validators/validators.js')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', treatmentController.get);
+
+router.get('/:id', treatmentController.getOne);
+
+router.post('/', treatmentValidationRules(), validate, treatmentController.add);
+
+router.post('/:id', treatmentValidationRules(), validate, treatmentController.edit);
+
+router.delete('/:id', treatmentController.remove);
 
 module.exports = router;
+

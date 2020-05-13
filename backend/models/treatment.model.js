@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 const treatmentSchema = new Schema({
   start: String,
   end: String,
-  test: String,
-  doctor: String,
+  text: { type: String, default: "" },
+  doctor: [{ type: Schema.Types.ObjectId, ref: "Doctor" }],
 });
 
-module.exports = Treatment = mongoose.model('treatmentModel', treatmentSchema );
+module.exports = Treatment = mongoose.model("Treatment", treatmentSchema);

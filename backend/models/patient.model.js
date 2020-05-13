@@ -7,7 +7,7 @@ const patientSchema = new Schema({
   age: String,
   sex: String,
   drugs: [{ type: Schema.Types.ObjectId, ref: 'Drug' }],
-  treatments: Number
+  treatments: [{ type: Schema.Types.ObjectId, ref: 'Treatment' }]
 });
 
-module.exports = Patient = mongoose.model('patientModel', patientSchema );
+module.exports = Patient = mongoose.model('Patient', patientSchema );

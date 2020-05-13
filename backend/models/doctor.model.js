@@ -7,4 +7,4 @@ const doctorSchema = new Schema({
   speciality: String
 });
 
-module.exports = Doctor = mongoose.model('doctorModel', doctorSchema );
+module.exports = Doctor = mongoose.model('Doctor', doctorSchema );
