@@ -23,14 +23,44 @@ exports.add = (req, res) => {
     age: req.body.age,
     sex: req.body.sex,
     drugs: req.body.drugs,
-    treatments: req.body.treatments
-  }).then((patient) => res.json(patient));
+    treatments: req.body.treatments,
+  })
+    .then((patient) => {
+      patient
+        .populate({
+          path: "drugs treatments",
+          populate: {
+            path: "doctor",
+          },
+        })
+        .execPopulate()
+        .then((patientPop) => res.json(patientPop))
+        .catch((error) => {
+          res.status(409).json(error);
+        });
+    })
+    .catch((error) => {
+      res.status(409).json(error);
+    });
 };
 
 exports.edit = (req, res) => {
   Patient.findByIdAndUpdate(req.params.id, req.body)
     .exec()
-    .then((patient) => res.json(patient))
+    .then((patient) => {
+      patient
+        .populate({
+          path: "drugs treatments",
+          populate: {
+            path: "doctor",
+          },
+        })
+        .execPopulate()
+        .then((patientPop) => res.json(patientPop))
+        .catch((error) => {
+          res.status(409).json(error);
+        });
+    })
     .catch((error) => {
       res.status(409).json(error);
     });
