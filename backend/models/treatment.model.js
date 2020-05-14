@@ -5,7 +5,7 @@ const treatmentSchema = new Schema({
   start: String,
   end: String,
   text: { type: String, default: "" },
-  doctor: [{ type: Schema.Types.ObjectId, ref: "Doctor" }],
+  doctor: { type: Schema.Types.ObjectId, ref: "Doctor" },
 });
 
 module.exports = Treatment = mongoose.model("Treatment", treatmentSchema);

@@ -1,4 +1,5 @@
 const Drug = require("../models/drug.model");
+const Patient = require("../models/patient.model");
 
 exports.get = (req, res) => {
   Drug.find()
@@ -35,7 +36,16 @@ exports.edit = (req, res) => {
 exports.remove = (req, res) => {
   Drug.findByIdAndDelete(req.params.id)
     .exec()
-    .then(() => res.sendStatus(204))
+    .then(() => {
+      Patient.updateMany(
+        { drugs: req.params.id },
+        { $pull: { drugs: req.params.id } }
+      )
+        .exec()
+        .then(() => {
+          res.sendStatus(204);
+        });
+    })
     .catch((error) => {
       res.status(409).json(error);
     });

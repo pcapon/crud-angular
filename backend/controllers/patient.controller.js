@@ -2,6 +2,12 @@ const Patient = require("../models/patient.model");
 
 exports.get = (req, res) => {
   Patient.find()
+    .populate({
+      path: "drugs treatments",
+      populate: {
+        path: "doctor",
+      },
+    })
     .then((patient) => res.json(patient))
     .catch((error) => {
       res.status(409).json(error);
@@ -10,6 +16,12 @@ exports.get = (req, res) => {
 
 exports.getOne = (req, res) => {
   Patient.findById(req.params.id)
+    .populate({
+      path: "drugs treatments",
+      populate: {
+        path: "doctor",
+      },
+    })
     .then((patient) => res.json(patient))
     .catch((error) => {
       res.status(409).json(error);
