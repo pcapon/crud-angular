@@ -1,1 +1,17 @@
-<p>patient-view works!</p>
+<p>patient-view</p>
+<button
+  mat-fab
+  color="primary"
+  aria-label="Example icon button with a delete icon"
+  (click)="openDialog()"
+>
+  <mat-icon>add</mat-icon>
+</button>
+
+<div *ngFor="let patient of patients">
+  <mat-card>
+    <span class="badge">{{ patient.id }}</span>
+    {{ patient.firstName }}
+    {{ patient.lastName }}
+  </mat-card>
+</div>

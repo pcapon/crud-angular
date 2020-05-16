@@ -1,22 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';  
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { PatientViewComponent } from './patient-view/patient-view.component';
+import { PatientViewComponent, PatientAddDialog } from './patient-view/patient-view.component';
 import { DoctorViewComponent } from './doctor-view/doctor-view.component';
+
+import { MaterialModule } from './material-module';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientViewComponent,
-    DoctorViewComponent
+    DoctorViewComponent,
+    PatientAddDialog
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MaterialModule,
+    CommonModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

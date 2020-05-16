@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Ajouter un patient</h1>
+<div mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="data.lastName" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput [(ngModel)]="data.firstName"/>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput [(ngModel)]="data.age" type="number" min="0" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Sexe</mat-label>
+      <mat-select [(ngModel)]="data.sex">
+        <mat-option value="male">Homme</mat-option>
+        <mat-option value="female">Femme</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Textarea</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anuler</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>
+    Ajouter
+  </button>
+</div>
