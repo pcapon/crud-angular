@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Ajouter un patient</h1>
+<h1 mat-dialog-title>{{ data.mode === 'edit' ? 'Éditer' : 'Ajouter' }}  un patient</h1>
 <div mat-dialog-content>
   <div class="example-container">
     <mat-form-field appearance="fill">
@@ -43,6 +43,6 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">Anuler</button>
   <button mat-button [mat-dialog-close]="data.form" cdkFocusInitial>
-    Ajouter
+    {{ data.mode === 'edit' ? 'Éditer' : 'Ajouter' }} 
   </button>
 </div>

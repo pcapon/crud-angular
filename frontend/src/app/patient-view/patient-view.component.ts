@@ -1,4 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable, of } from 'rxjs';
 
 import { Patient } from '../patient';
 import { PatientService } from '../patient.service';
@@ -7,11 +10,8 @@ import { DrugService } from '../drug.service';
 import { Treatment } from '../treatment';
 import { TreatmentService } from '../treatment.service';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-
-import { Observable, of } from 'rxjs';
-
 export interface DialogData {
+  mode: string,
   form: {
     firstName: string;
     lastName: string;
@@ -39,7 +39,8 @@ export class PatientViewComponent implements OnInit {
     private patientService: PatientService,
     private drugService: DrugService,
     private treatmentService: TreatmentService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -49,12 +50,23 @@ export class PatientViewComponent implements OnInit {
   getPatients(): void {
     this.patientService.getPatients().subscribe(patients => this.patients = patients);
   }
+  
+  deletePatient(patient): void {
+    this.patientService.deletePatient(patient._id).subscribe(() => {
+      this._snackBar.open(`${patient.firstName} ${patient.lastName}  deleted`, 'close', {
+        duration: 2000,
+      });
+      this.getPatients();
+    });
+  }
+
   openDialog(patient) {
     console.log(patient?.sex);
     const drugs = this.drugService.getDrugs();
     const treatments = this.treatmentService.getTreatments();
     const dialogRef = this.dialog.open(PatientAddDialog, {
       data: {
+        mode: patient ? 'edit' : 'add',
         form: {
           lastName: patient?.lastName || '',
           firstName: patient?.firstName || '',
@@ -82,7 +94,7 @@ export class PatientViewComponent implements OnInit {
           treatments: result.treatments
         };
         if (patient) {
-          this.patientService.updatePatient(finalPatient as Patient).subscribe(patientRet => {
+          this.patientService.updatePatient(finalPatient as Patient).subscribe(() => {
             this.getPatients();
           });
         }
