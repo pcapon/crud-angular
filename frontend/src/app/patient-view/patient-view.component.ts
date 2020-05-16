@@ -2,13 +2,28 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { Patient } from '../patient';
 import { PatientService } from '../patient.service';
+import { Drug } from '../drug';
+import { DrugService } from '../drug.service';
+import { Treatment } from '../treatment';
+import { TreatmentService } from '../treatment.service';
+
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import { Observable, of } from 'rxjs';
+
 export interface DialogData {
-  lastName: '',
-  firstName: '',
-  age: '',
-  sex: ''
+  form: {
+    firstName: string;
+    lastName: string;
+    age: string;
+    sex: string;
+    drugs: string[];
+    treatments: string[];
+  }
+  autocompleteValues: {
+    drugs: Observable<Drug[]>,
+    treatments: Observable<Treatment[]>
+  }
 }
 
 @Component({
@@ -18,8 +33,14 @@ export interface DialogData {
 })
 export class PatientViewComponent implements OnInit {
   patients: Patient[];
+  drugs: Drug[];
 
-  constructor(private patientService: PatientService, public dialog: MatDialog) { }
+  constructor(
+    private patientService: PatientService,
+    private drugService: DrugService,
+    private treatmentService: TreatmentService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.getPatients();
@@ -28,18 +49,49 @@ export class PatientViewComponent implements OnInit {
   getPatients(): void {
     this.patientService.getPatients().subscribe(patients => this.patients = patients);
   }
-  openDialog() {
+  openDialog(patient) {
+    console.log(patient);
+    const drugs = this.drugService.getDrugs();
+    const treatments = this.treatmentService.getTreatments();
     const dialogRef = this.dialog.open(PatientAddDialog, {
       data: {
-        lastName: '',
-        firstName: '',
-        age: '',
-        sex: ''
+        form: {
+          lastName: patient?.lastName || '',
+          firstName: patient?.firstName || '',
+          age: patient?.age || '',
+          sex: patient?.sex || '',
+          drugs: patient?.drugs.map(x => x.id) || [],
+          treatments: patient?.treatments.map(x => x.id) || []
+        },
+        autocompleteValues: {
+          drugs: drugs,
+          treatments: treatments
+        }
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      if (result) {
+        const finalPatient = {
+          _id: patient?._id || null,
+          lastName: result.lastName.trim(),
+          firstName: result.lastName.trim(),
+          age: result.age,
+          sex: result.sex,
+          drugs: result.drugs,
+          treatments: result.treatments
+        };
+        if (patient) {
+          this.patientService.updatePatient(finalPatient as Patient).subscribe(patientRet => {
+            console.log(patientRet);
+            this.patients.push(patientRet);
+          });;
+        }
+        this.patientService.addPatient(finalPatient as Patient).subscribe(patientRet => {
+          console.log(patientRet);
+          this.patients.push(patientRet);
+        });;
+      }
     });
   }
 }

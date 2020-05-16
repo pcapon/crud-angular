@@ -3,15 +3,26 @@
   mat-fab
   color="primary"
   aria-label="Example icon button with a delete icon"
-  (click)="openDialog()"
+  (click)="openDialog(null)"
 >
   <mat-icon>add</mat-icon>
 </button>
 
 <div *ngFor="let patient of patients">
   <mat-card>
-    <span class="badge">{{ patient.id }}</span>
-    {{ patient.firstName }}
-    {{ patient.lastName }}
+    <mat-card-header>
+      <mat-card-title
+        >{{ patient.firstName }} {{ patient.lastName }}</mat-card-title
+      >
+      <mat-card-subtitle
+        >{{ patient.age }} ans - {{ patient.sex }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button (click)="openDialog(patient)" mat-button>
+        Modifier patient <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button>Supprimer patient <mat-icon>delete</mat-icon></button>
+    </mat-card-actions>
   </mat-card>
 </div>

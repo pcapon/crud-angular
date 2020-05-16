@@ -2,7 +2,7 @@ import { Drug } from './drug'
 import { Treatment } from './treatment'
 
 export interface Patient {
-    id: number;
+    _id: number;
     firstName: string;
     lastName: string;
     age: string;

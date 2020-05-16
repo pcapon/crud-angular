@@ -35,7 +35,7 @@ export class PatientService {
   }
 
   updatePatient(patient: Patient): Observable<Patient> {
-    return this.http.post<Patient>(`${this.serverUrl}/patient/${patient.id}`, patient, this.httpOptions).pipe(
+    return this.http.post<Patient>(`${this.serverUrl}/patient/${patient._id}`, patient, this.httpOptions).pipe(
       catchError(this.handleError<Patient>('updatePatient'))
     );
   }
