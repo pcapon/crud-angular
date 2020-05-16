@@ -10,13 +10,16 @@ import { PatientViewComponent, PatientAddDialog } from './patient-view/patient-v
 import { DoctorViewComponent } from './doctor-view/doctor-view.component';
 
 import { MaterialModule } from './material-module';
+import { AppRoutingModule } from './app-routing.module';
+import { PatientDetailViewComponent } from './patient-detail-view/patient-detail-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientViewComponent,
     DoctorViewComponent,
-    PatientAddDialog
+    PatientAddDialog,
+    PatientDetailViewComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { MaterialModule } from './material-module';
     HttpClientModule,
     MaterialModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -43,6 +43,10 @@ export class PatientViewComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) { }
 
+  logThis() {
+    console.log('hello');
+  }
+
   ngOnInit() {
     this.getPatients();
   }
