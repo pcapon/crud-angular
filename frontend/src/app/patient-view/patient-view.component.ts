@@ -50,7 +50,7 @@ export class PatientViewComponent implements OnInit {
     this.patientService.getPatients().subscribe(patients => this.patients = patients);
   }
   openDialog(patient) {
-    console.log(patient);
+    console.log(patient?.sex);
     const drugs = this.drugService.getDrugs();
     const treatments = this.treatmentService.getTreatments();
     const dialogRef = this.dialog.open(PatientAddDialog, {
@@ -60,8 +60,8 @@ export class PatientViewComponent implements OnInit {
           firstName: patient?.firstName || '',
           age: patient?.age || '',
           sex: patient?.sex || '',
-          drugs: patient?.drugs.map(x => x.id) || [],
-          treatments: patient?.treatments.map(x => x.id) || []
+          drugs: patient?.drugs.map(x => x._id) || [],
+          treatments: patient?.treatments.map(x => x._id) || []
         },
         autocompleteValues: {
           drugs: drugs,
@@ -75,7 +75,7 @@ export class PatientViewComponent implements OnInit {
         const finalPatient = {
           _id: patient?._id || null,
           lastName: result.lastName.trim(),
-          firstName: result.lastName.trim(),
+          firstName: result.firstName.trim(),
           age: result.age,
           sex: result.sex,
           drugs: result.drugs,
@@ -83,14 +83,15 @@ export class PatientViewComponent implements OnInit {
         };
         if (patient) {
           this.patientService.updatePatient(finalPatient as Patient).subscribe(patientRet => {
+            this.getPatients();
+          });
+        }
+        else {
+          this.patientService.addPatient(finalPatient as Patient).subscribe(patientRet => {
             console.log(patientRet);
             this.patients.push(patientRet);
-          });;
+          });
         }
-        this.patientService.addPatient(finalPatient as Patient).subscribe(patientRet => {
-          console.log(patientRet);
-          this.patients.push(patientRet);
-        });;
       }
     });
   }

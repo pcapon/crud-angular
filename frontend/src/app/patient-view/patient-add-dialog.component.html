@@ -18,7 +18,7 @@
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Sexe</mat-label>
-      <mat-select [(ngModel)]="data.form.sex">
+      <mat-select [(value)]="data.form.sex">
         <mat-option value="male">Homme</mat-option>
         <mat-option value="female">Femme</mat-option>
       </mat-select>
@@ -26,14 +26,14 @@
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Médicaments</mat-label>
-      <mat-select [(ngModel)]="data.form.drugs" multiple>
+      <mat-select [(value)]="data.form.drugs" multiple>
         <mat-option *ngFor="let drug of data.autocompleteValues.drugs | async" [value]="drug._id">{{drug.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Traitements</mat-label>
-      <mat-select [(ngModel)]="data.form.treatments" multiple>
+      <mat-select [(value)]="data.form.treatments" multiple>
         <mat-option *ngFor="let treatment of data.autocompleteValues.treatments | async" [value]="treatment._id">{{treatment.text}}({{treatment.start}} -> {{ treatment.end }} )</mat-option>
       </mat-select>
     </mat-form-field>
