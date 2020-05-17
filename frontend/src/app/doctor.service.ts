@@ -23,6 +23,12 @@ export class DoctorService {
     );;
   }
 
+  getFull() {
+    return this.http.get(`${this.serverUrl}/doctor/full`).pipe(
+      catchError(this.handleError('getFull', []))
+    );;
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

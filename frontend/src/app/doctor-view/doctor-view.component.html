@@ -1,1 +1,43 @@
-<p>doctor-view works!</p>
+<h1>Docteurs</h1>
+
+<div *ngFor="let doctor of fullDoctors">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        {{ doctor.doctor.firstName }} {{ doctor.doctor.lastName }}
+      </mat-card-title>
+      <mat-card-subtitle>{{ doctor.doctor.speciality }} </mat-card-subtitle>
+    </mat-card-header>
+    <span>Traitements associés à ce medecin:</span>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let treatment of doctor.treatments">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ treatment.treatment.text }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ treatment.treatment.start }} -> {{ treatment.treatment.end }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item
+            *ngFor="let patient of treatment.patients"
+            role="listitem"
+          >
+            <a routerLink="/detail/{{ patient._id }}">
+              {{ patient.firstName }} {{ patient.lastName }}
+            </a></mat-list-item
+          >
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <mat-card-actions>
+      <button (click)="openDialog(patient)" mat-button>
+        Modifier docteur <mat-icon>edit</mat-icon>
+      </button>
+      <button color="warn" (click)="deletePatient(patient)" mat-button>
+        Supprimer docteur <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
