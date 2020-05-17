@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{ data.mode === 'edit' ? 'Éditer' : 'Ajouter' }}  un docteur</h1>
+<div mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput [(ngModel)]="data.form.lastName" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput [(ngModel)]="data.form.firstName"/>
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="fill">
+      <mat-label>Speciality</mat-label>
+      <input matInput [(ngModel)]="data.form.speciality"/>
+    </mat-form-field>
+    <br />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anuler</button>
+  <button mat-button [mat-dialog-close]="data.form" cdkFocusInitial>
+    {{ data.mode === 'edit' ? 'Éditer' : 'Ajouter' }} 
+  </button>
+</div>

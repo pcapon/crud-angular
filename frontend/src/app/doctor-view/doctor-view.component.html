@@ -1,5 +1,14 @@
 <h1>Docteurs</h1>
 
+<button
+  mat-fab
+  color="primary"
+  aria-label="Example icon button with a delete icon"
+  (click)="openDialog(null)"
+>
+  <mat-icon>add</mat-icon>
+</button>
+
 <div *ngFor="let doctor of fullDoctors">
   <mat-card>
     <mat-card-header>
@@ -32,10 +41,10 @@
       </mat-expansion-panel>
     </mat-accordion>
     <mat-card-actions>
-      <button (click)="openDialog(patient)" mat-button>
+      <button (click)="openDialog(doctor.doctor)" mat-button>
         Modifier docteur <mat-icon>edit</mat-icon>
       </button>
-      <button color="warn" (click)="deletePatient(patient)" mat-button>
+      <button (click)="deleteDoctor(doctor.doctor)" color="warn" mat-button>
         Supprimer docteur <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>

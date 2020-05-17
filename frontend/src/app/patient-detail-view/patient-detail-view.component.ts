@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 import { MatPaginator } from '@angular/material/paginator';
@@ -70,8 +71,8 @@ export class PatientDetailViewComponent implements OnInit {
     const dialogRef = this.dialog.open(TreatmentAddDialog, {
       data: {
         form: {
-          start: '',
-          end: '',
+          start: new FormControl((new Date()).toISOString()),
+          end: new FormControl((new Date()).toISOString()),
           text: '',
           doctor: ''
         },

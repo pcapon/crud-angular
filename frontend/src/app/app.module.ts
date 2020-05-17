@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PatientViewComponent, PatientAddDialog } from './patient-view/patient-view.component';
-import { DoctorViewComponent } from './doctor-view/doctor-view.component';
+import { DoctorViewComponent, DoctorAddDialog } from './doctor-view/doctor-view.component';
 
 import { MaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,7 +20,8 @@ import { PatientDetailViewComponent, TreatmentAddDialog } from './patient-detail
     DoctorViewComponent,
     PatientAddDialog,
     PatientDetailViewComponent,
-    TreatmentAddDialog
+    TreatmentAddDialog,
+    DoctorAddDialog
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,24 @@ export class DoctorService {
     );;
   }
 
+  addDoctor(doctor: Doctor): Observable<Doctor> {
+    return this.http.post<Doctor>(`${this.serverUrl}/doctor/`, doctor, this.httpOptions).pipe(
+      catchError(this.handleError<Doctor>('addDoctor'))
+    );
+  }
+
+  updateDoctor(doctor: Doctor): Observable<Doctor> {
+    return this.http.post<Doctor>(`${this.serverUrl}/doctor/${doctor._id}`, doctor, this.httpOptions).pipe(
+      catchError(this.handleError<Doctor>('updateDoctor'))
+    );
+  }
+
+  deleteDoctor(id: string): Observable<any> {
+    return this.http.delete(`${this.serverUrl}/doctor/${id}`).pipe(
+      catchError(this.handleError<Observable<any>>(`deleteDoctor id=${id}`))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
