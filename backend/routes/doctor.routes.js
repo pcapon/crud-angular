@@ -5,6 +5,8 @@ const { doctorValidationRules, validate } = require('../validators/validators.js
 
 router.get('/', doctorController.get);
 
+router.get('/full', doctorController.getFull);
+
 router.get('/:id', doctorController.getOne);
 
 router.post('/', doctorValidationRules(), validate, doctorController.add);

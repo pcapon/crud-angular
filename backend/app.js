@@ -5,14 +5,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
 
-var patientRouter = require('./routes/patient.routes');
-var drugRouter = require('./routes/drug.routes');
-var doctorRouter = require('./routes/doctor.routes');
-var treatmentRouter = require('./routes/treatment.routes');
 var mongoose = require("mongoose");
 
 var app = express();
 app.use(cors());
+
+var patientRouter = require('./routes/patient.routes');
+var drugRouter = require('./routes/drug.routes');
+var doctorRouter = require('./routes/doctor.routes');
+var treatmentRouter = require('./routes/treatment.routes');
 
 var mongoDB = 'mongodb://127.0.0.1/my_database';
 mongoose.connect(mongoDB, { useNewUrlParser: true, useFindAndModify: false });

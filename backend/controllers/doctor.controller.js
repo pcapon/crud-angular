@@ -1,5 +1,6 @@
 const Doctor = require("../models/doctor.model");
 const Treatment = require("../models/treatment.model");
+const Patient = require("../models/patient.model");
 
 exports.get = (req, res) => {
   Doctor.find()
@@ -50,4 +51,21 @@ exports.remove = (req, res) => {
     .catch((error) => {
       res.status(409).json(error);
     });
+};
+
+exports.getFull = async (req, res) => {
+  let fullResponse = [];
+  const doctors = await Doctor.find().exec();
+  for (const doctor of doctors) {
+    const treatments = await Treatment.find({ doctor: doctor._id }).exec();
+    for (const treatment of treatments) {
+      patients = await Patient.find({ treatments: treatment._id }).exec()
+      fullResponse.push({
+        doctor : doctor,
+        treatment : treatment,
+        patients : patients
+      });
+    }
+  }
+  res.status(200).json(fullResponse);
 };
