@@ -3,6 +3,8 @@
 <span *ngIf="patient">{{ patient.firstName }} {{ patient.lastName }} </span>
 <ng-template>Chargement...</ng-template>
 
+<button mat-raised-button > Ajouter un traitement </button>
+
 <div class="mat-elevation-z8" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource">
     <!-- Position Column -->
