@@ -1,42 +1,88 @@
-<p>patient-detail-view works!</p>
-
-<span *ngIf="patient">{{ patient.firstName }} {{ patient.lastName }} </span>
-<ng-template>Chargement...</ng-template>
-
-<button mat-raised-button > Ajouter un traitement </button>
-
-<div class="mat-elevation-z8" *ngIf="dataSource">
-  <table mat-table [dataSource]="dataSource">
-    <!-- Position Column -->
-    <ng-container matColumnDef="text">
-      <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.text }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="start">
-      <th mat-header-cell *matHeaderCellDef>Debut</th>
-      <td mat-cell *matCellDef="let element">{{ element.start }}</td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="end">
-      <th mat-header-cell *matHeaderCellDef>Fin</th>
-      <td mat-cell *matCellDef="let element">{{ element.end }}</td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="doctor">
-      <th mat-header-cell *matHeaderCellDef>Docteur</th>
-      <td mat-cell *matCellDef="let element">{{ element.doctor ? element.doctor.firstName + ' ' + element.doctor.lastName : '' }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-  ></mat-paginator>
+<div *ngIf="patient">
+  <h1>{{ patient.firstName }} {{ patient.lastName }}</h1>
+  <h2>{{ patient.sex }} {{ patient.age }}</h2>
 </div>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Traitements</mat-card-title>
+  </mat-card-header>
+  <button (click)="openDialog()" mat-raised-button>
+    Ajouter un nouveau traitement
+  </button>
+  <button mat-raised-button>Ajouter un traitement existant</button>
+  <div class="mat-elevation-z8" *ngIf="dataSourceTreatments">
+    <table mat-table [dataSource]="dataSourceTreatments">
+      <!-- Position Column -->
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.text }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="start">
+        <th mat-header-cell *matHeaderCellDef>Debut</th>
+        <td mat-cell *matCellDef="let element">{{ element.start }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="end">
+        <th mat-header-cell *matHeaderCellDef>Fin</th>
+        <td mat-cell *matCellDef="let element">{{ element.end }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="doctor">
+        <th mat-header-cell *matHeaderCellDef>Docteur</th>
+        <td mat-cell *matCellDef="let element">
+          {{
+            element.doctor
+              ? element.doctor.firstName + " " + element.doctor.lastName
+              : ""
+          }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsTreatments"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsTreatments"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Médicaments</mat-card-title>
+  </mat-card-header>
+  <button mat-raised-button>
+    Ajouter un nouveau Médicament
+  </button>
+  <button mat-raised-button>Ajouter un médicament existant</button>
+  <div class="mat-elevation-z8" *ngIf="dataSourceDrugs">
+    <table mat-table [dataSource]="dataSourceDrugs">
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef>Code</th>
+        <td mat-cell *matCellDef="let element">{{ element.code }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumnsDrugs"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumnsDrugs"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</mat-card>

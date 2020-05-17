@@ -11,7 +11,7 @@ import { DoctorViewComponent } from './doctor-view/doctor-view.component';
 
 import { MaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
-import { PatientDetailViewComponent } from './patient-detail-view/patient-detail-view.component';
+import { PatientDetailViewComponent, TreatmentAddDialog } from './patient-detail-view/patient-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,8 @@ import { PatientDetailViewComponent } from './patient-detail-view/patient-detail
     PatientViewComponent,
     DoctorViewComponent,
     PatientAddDialog,
-    PatientDetailViewComponent
+    PatientDetailViewComponent,
+    TreatmentAddDialog
   ],
   imports: [
     BrowserModule,

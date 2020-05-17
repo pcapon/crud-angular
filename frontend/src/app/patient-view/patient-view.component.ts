@@ -60,7 +60,6 @@ export class PatientViewComponent implements OnInit {
   }
 
   openDialog(patient) {
-    console.log(patient?.sex);
     const drugs = this.drugService.getDrugs();
     const treatments = this.treatmentService.getTreatments();
     const dialogRef = this.dialog.open(PatientAddDialog, {
@@ -99,7 +98,6 @@ export class PatientViewComponent implements OnInit {
         }
         else {
           this.patientService.addPatient(finalPatient as Patient).subscribe(patientRet => {
-            console.log(patientRet);
             this.patients.push(patientRet);
           });
         }

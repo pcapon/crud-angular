@@ -11,11 +11,11 @@
 <div *ngFor="let patient of patients">
   <mat-card>
     <mat-card-header>
-      <a routerLink="/detail/{{patient._id}}">
-        <mat-card-title
-          >{{ patient.firstName }} {{ patient.lastName }}</mat-card-title
-        >
-      </a>
+      <mat-card-title>
+        <a routerLink="/detail/{{ patient._id }}">
+          {{ patient.firstName }} {{ patient.lastName }}
+        </a>
+      </mat-card-title>
       <mat-card-subtitle
         >{{ patient.age }} ans - {{ patient.sex }}
       </mat-card-subtitle>
