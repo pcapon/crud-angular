@@ -1,2 +1,8 @@
-<h1>{{title}}</h1>
+<mat-toolbar>
+  <span>My Application</span>
+</mat-toolbar>
 <router-outlet></router-outlet>
+<mat-toolbar class="navigation">
+  <button routerLink="/dashboard" mat-flat-button color="primary">Patients</button>
+  <button routerLink="/doctor" mat-flat-button color="primary">Docteurs</button>
+</mat-toolbar>

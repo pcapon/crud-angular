@@ -1,1 +1,40 @@
 <p>patient-detail-view works!</p>
+
+<span *ngIf="patient">{{ patient.firstName }} {{ patient.lastName }} </span>
+<ng-template>Chargement...</ng-template>
+
+<div class="mat-elevation-z8" *ngIf="dataSource">
+  <table mat-table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="text">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.text }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="start">
+      <th mat-header-cell *matHeaderCellDef>Debut</th>
+      <td mat-cell *matCellDef="let element">{{ element.start }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="end">
+      <th mat-header-cell *matHeaderCellDef>Fin</th>
+      <td mat-cell *matCellDef="let element">{{ element.end }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="doctor">
+      <th mat-header-cell *matHeaderCellDef>Docteur</th>
+      <td mat-cell *matCellDef="let element">{{ element.doctor ? element.doctor.firstName + ' ' + element.doctor.lastName : '' }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

@@ -7,6 +7,6 @@ export interface Patient {
     lastName: string;
     age: string;
     sex: string;
-    drugs: Drug;
-    treatments: Treatment;
+    drugs: Drug[];
+    treatments: Treatment[];
 }

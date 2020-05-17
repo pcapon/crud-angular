@@ -22,7 +22,7 @@ export class PatientService {
     );;
   }
 
-  getPatient(id: number): Observable<Patient> {
+  getPatient(id: string): Observable<Patient> {
     return this.http.get<Patient>(`${this.serverUrl}/patient/${id}`).pipe(
       catchError(this.handleError<Patient>(`getPatient id=${id}`))
     );
@@ -40,7 +40,7 @@ export class PatientService {
     );
   }
 
-  deletePatient(id: number): Observable<any> {
+  deletePatient(id: string): Observable<any> {
     return this.http.delete(`${this.serverUrl}/patient/${id}`).pipe(
       catchError(this.handleError<Observable<any>>(`deletePatient id=${id}`))
     );

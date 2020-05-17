@@ -10,7 +10,7 @@
 
 <div *ngFor="let patient of patients">
   <mat-card>
-    <mat-card-header (click)="logThis()">
+    <mat-card-header>
       <a routerLink="/detail/{{patient._id}}">
         <mat-card-title
           >{{ patient.firstName }} {{ patient.lastName }}</mat-card-title
@@ -24,7 +24,7 @@
       <button (click)="openDialog(patient)" mat-button>
         Modifier patient <mat-icon>edit</mat-icon>
       </button>
-      <button (click)="deletePatient(patient)" mat-button>
+      <button color="warn" (click)="deletePatient(patient)" mat-button>
         Supprimer patient <mat-icon>delete</mat-icon>
       </button>
     </mat-card-actions>

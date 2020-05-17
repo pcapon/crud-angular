@@ -33,7 +33,6 @@ export interface DialogData {
 })
 export class PatientViewComponent implements OnInit {
   patients: Patient[];
-  drugs: Drug[];
 
   constructor(
     private patientService: PatientService,
@@ -42,10 +41,6 @@ export class PatientViewComponent implements OnInit {
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) { }
-
-  logThis() {
-    console.log('hello');
-  }
 
   ngOnInit() {
     this.getPatients();
