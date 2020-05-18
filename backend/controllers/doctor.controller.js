@@ -58,14 +58,18 @@ exports.getFull = async (req, res) => {
   const doctors = await Doctor.find().exec();
   for (const doctor of doctors) {
     const treatments = await Treatment.find({ doctor: doctor._id }).exec();
+    tmpTreatments = [];
     for (const treatment of treatments) {
       patients = await Patient.find({ treatments: treatment._id }).exec()
-      fullResponse.push({
-        doctor : doctor,
-        treatment : treatment,
-        patients : patients
-      });
+      tmpTreatments.push({
+        treatment,
+        patients: patients
+      })
     }
+    fullResponse.push({
+      doctor,
+      treatments : tmpTreatments
+    });
   }
   res.status(200).json(fullResponse);
 };
