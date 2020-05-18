@@ -3,22 +3,22 @@
   <div class="example-container">
     <mat-form-field appearance="fill">
       <mat-label>Nom</mat-label>
-      <input matInput [(ngModel)]="data.form.lastName" />
+      <input required matInput [(ngModel)]="data.form.lastName" />
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Prénom</mat-label>
-      <input matInput [(ngModel)]="data.form.firstName"/>
+      <input required matInput [(ngModel)]="data.form.firstName"/>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Age</mat-label>
-      <input matInput [(ngModel)]="data.form.age" type="number" min="0" />
+      <input required matInput [(ngModel)]="data.form.age" type="number" min="0" />
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Sexe</mat-label>
-      <mat-select [(value)]="data.form.sex">
+      <mat-select required [(value)]="data.form.sex">
         <mat-option value="male">Homme</mat-option>
         <mat-option value="female">Femme</mat-option>
       </mat-select>

@@ -50,3 +50,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
+<div *ngIf="!fullDoctors || fullDoctors.length === 0">
+  <h1>Aucun docteur</h1>
+</div>

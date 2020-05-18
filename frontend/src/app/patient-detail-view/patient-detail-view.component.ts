@@ -89,7 +89,6 @@ export class PatientDetailViewComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.patientService.getPatient(id)
       .subscribe(patient => {
-        console.log(patient);
         this.patient = patient
         this.dataSourceTreatments = new MatTableDataSource<Treatment>(this.patient.treatments);
         this.dataSourceDrugs = new MatTableDataSource<Drug>(this.patient.drugs);
@@ -124,7 +123,6 @@ export class PatientDetailViewComponent implements OnInit {
             drugs: this.patient.drugs.map(x => x._id),
             treatments: this.patient.treatments.map(x => x._id).concat(treatment._id)
           }
-          console.log(patientUpdate)
           this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
             this.getPatient();
           });
@@ -157,7 +155,6 @@ export class PatientDetailViewComponent implements OnInit {
           drugs: this.patient.drugs.map(x => x._id),
           treatments: this.patient.treatments.map(x => x._id).concat(result.treatments)
         }
-        console.log(patientUpdate)
         this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
           this.getPatient();
         });
@@ -189,7 +186,6 @@ export class PatientDetailViewComponent implements OnInit {
           drugs: this.patient.drugs.map(x => x._id).concat(result.drugs),
           treatments: this.patient.treatments.map(x => x._id)
         }
-        console.log(patientUpdate)
         this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
           this.getPatient();
         });
@@ -223,7 +219,6 @@ export class PatientDetailViewComponent implements OnInit {
             drugs: this.patient.drugs.map(x => x._id).concat(drug._id),
             treatments: this.patient.treatments.map(x => x._id)
           }
-          console.log(patientUpdate)
           this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
             this.getPatient();
           });

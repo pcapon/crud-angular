@@ -91,7 +91,6 @@ export class PatientViewComponent implements OnInit {
           drugs: result.drugs,
           treatments: result.treatments
         };
-        console.log(finalPatient);
         if (patient) {
           this.patientService.updatePatient(finalPatient as Patient).subscribe(() => {
             this.getPatients();

@@ -3,26 +3,26 @@
   <div class="example-container">
     <mat-form-field appearance="fill">
       <mat-label>Debut</mat-label>
-      <input matInput [(ngModel)]="data.form.start" [matDatepicker]="pickerStart">
+      <input matInput required [(ngModel)]="data.form.start" [matDatepicker]="pickerStart">
       <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
       <mat-datepicker #pickerStart></mat-datepicker>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Fin</mat-label>
-      <input matInput [(ngModel)]="data.form.end" [matDatepicker]="pickerEnd">
+      <input matInput required [(ngModel)]="data.form.end" [matDatepicker]="pickerEnd">
       <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
       <mat-datepicker #pickerEnd></mat-datepicker>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
-      <input matInput [(ngModel)]="data.form.text"/>
+      <input matInput required [(ngModel)]="data.form.text"/>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Docteur</mat-label>
-      <mat-select [(value)]="data.form.doctor">
+      <mat-select required [(value)]="data.form.doctor">
         <mat-option *ngFor="let doctor of data.autocompleteValues.doctors | async" [value]="doctor._id">{{doctor.firstName}} {{doctor.lastName}} ({{doctor.speciality}}) </mat-option>
       </mat-select>
     </mat-form-field>

@@ -3,12 +3,12 @@
   <div class="example-container">
     <mat-form-field appearance="fill">
       <mat-label>Nom</mat-label>
-      <input matInput [(ngModel)]="data.form.lastName" />
+      <input matInput required [(ngModel)]="data.form.lastName" />
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">
       <mat-label>Prénom</mat-label>
-      <input matInput [(ngModel)]="data.form.firstName"/>
+      <input matInput required [(ngModel)]="data.form.firstName"/>
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">

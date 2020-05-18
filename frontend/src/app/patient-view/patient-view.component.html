@@ -31,3 +31,7 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
+<div *ngIf="!patients || patients.length === 0">
+  <h1>Aucun patient</h1>
+</div>

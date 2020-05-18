@@ -32,7 +32,6 @@ export class DoctorViewComponent implements OnInit {
   getFull(): void {
     this.doctorService.getFull().subscribe(result => {
       this.fullDoctors = result;
-      console.log(this.fullDoctors);
     })
   }
 
