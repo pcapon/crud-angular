@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';  
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { DoctorViewComponent, DoctorAddDialog } from './doctor-view/doctor-view.
 
 import { MaterialModule } from './material-module';
 import { AppRoutingModule } from './app-routing.module';
-import { PatientDetailViewComponent, TreatmentAddDialog, TreatmentAddExistDialog } from './patient-detail-view/patient-detail-view.component';
+import { PatientDetailViewComponent, TreatmentAddDialog, TreatmentAddExistDialog, DrugAddExistDialog, DrugAddDialog } from './patient-detail-view/patient-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,9 @@ import { PatientDetailViewComponent, TreatmentAddDialog, TreatmentAddExistDialog
     PatientDetailViewComponent,
     TreatmentAddDialog,
     DoctorAddDialog,
-    TreatmentAddExistDialog
+    TreatmentAddExistDialog,
+    DrugAddExistDialog,
+    DrugAddDialog
   ],
   imports: [
     BrowserModule,

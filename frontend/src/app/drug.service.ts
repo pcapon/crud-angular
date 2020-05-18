@@ -23,6 +23,12 @@ export class DrugService {
     );;
   }
 
+  addDrug(drug: Drug): Observable<Drug> {
+    return this.http.post<Drug>(`${this.serverUrl}/drug/`, drug, this.httpOptions).pipe(
+      catchError(this.handleError<Drug>('addDrug'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

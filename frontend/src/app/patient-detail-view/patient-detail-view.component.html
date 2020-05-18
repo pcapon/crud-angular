@@ -58,10 +58,10 @@
   <mat-card-header>
     <mat-card-title>Médicaments</mat-card-title>
   </mat-card-header>
-  <button mat-raised-button>
+  <button (click)="openDrugDialog()" mat-raised-button>
     Ajouter un nouveau Médicament
   </button>
-  <button mat-raised-button>Ajouter un médicament existant</button>
+  <button (click)="openDrugExistDialog()" mat-raised-button>Ajouter un médicament existant</button>
   <div class="mat-elevation-z8" *ngIf="dataSourceDrugs">
     <table mat-table [dataSource]="dataSourceDrugs">
       <!-- Position Column -->

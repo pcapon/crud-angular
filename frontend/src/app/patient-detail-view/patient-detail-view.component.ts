@@ -38,6 +38,25 @@ export interface DialogDataExist {
   }
 }
 
+export interface DialogDrugExist {
+  form: {
+    drugs: string[];
+  }
+  autocompleteValues: {
+    drugs: Observable<Drug[]>,
+  }
+}
+
+export interface DialogDrug {
+  form: {
+    name: string;
+    code: string;
+  }
+  autocompleteValues: {
+    drugs: Observable<Drug[]>,
+  }
+}
+
 @Component({
   selector: 'app-patient-detail-view',
   templateUrl: './patient-detail-view.component.html',
@@ -58,6 +77,7 @@ export class PatientDetailViewComponent implements OnInit {
     private patientService: PatientService,
     private doctorService: DoctorService,
     private treatmentService: TreatmentService,
+    private drugService: DrugService,
     public dialog: MatDialog,
   ) { }
 
@@ -118,7 +138,7 @@ export class PatientDetailViewComponent implements OnInit {
     const dialogRef = this.dialog.open(TreatmentAddExistDialog, {
       data: {
         form: {
-          treatments: []
+          treatments: this.patient.treatments.map(x => x._id)
         },
         autocompleteValues: {
           treatments: treatments
@@ -145,6 +165,73 @@ export class PatientDetailViewComponent implements OnInit {
     });
   }
 
+  openDrugExistDialog() {
+    const drugs = this.drugService.getDrugs();
+    const dialogRef = this.dialog.open(DrugAddExistDialog, {
+      data: {
+        form: {
+          drugs: this.patient.drugs.map(x => x._id)
+        },
+        autocompleteValues: {
+          drugs: drugs
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const patientUpdate = {
+          _id: this.patient?._id,
+          lastName: this.patient.lastName,
+          firstName: this.patient.firstName,
+          age: this.patient.age,
+          sex: this.patient.sex,
+          drugs: this.patient.drugs.map(x => x._id).concat(result.drugs),
+          treatments: this.patient.treatments.map(x => x._id)
+        }
+        console.log(patientUpdate)
+        this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
+          this.getPatient();
+        });
+      }
+    });
+  }
+
+  openDrugDialog() {
+    const drugs = this.drugService.getDrugs();
+    const dialogRef = this.dialog.open(DrugAddDialog, {
+      data: {
+        form: {
+          name: '',
+          code: ''
+        },
+        autocompleteValues: {
+          drugs: drugs
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.drugService.addDrug(result as Drug).subscribe((drug) => {
+          const patientUpdate = {
+            _id: this.patient?._id,
+            lastName: this.patient.lastName,
+            firstName: this.patient.firstName,
+            age: this.patient.age,
+            sex: this.patient.sex,
+            drugs: this.patient.drugs.map(x => x._id).concat(drug._id),
+            treatments: this.patient.treatments.map(x => x._id)
+          }
+          console.log(patientUpdate)
+          this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
+            this.getPatient();
+          });
+        })
+      }
+    });
+  }
+
 }
 
 
@@ -166,6 +253,30 @@ export class TreatmentAddDialog {
 })
 export class TreatmentAddExistDialog {
   constructor(public dialogRef: MatDialogRef<TreatmentAddExistDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogDataExist) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'drug-add-exist-dialog',
+  templateUrl: 'drug-add-exist-dialog.component.html',
+})
+export class DrugAddExistDialog {
+  constructor(public dialogRef: MatDialogRef<DrugAddExistDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogDrugExist) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: 'drug-add-dialog',
+  templateUrl: 'drug-add-dialog.component.html',
+})
+export class DrugAddDialog {
+  constructor(public dialogRef: MatDialogRef<DrugAddDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogDrug) { }
 
   onNoClick(): void {
     this.dialogRef.close();
