@@ -23,6 +23,12 @@ export class TreatmentService {
     );;
   }
 
+  addTreatment(treatment: Treatment): Observable<Treatment> {
+    return this.http.post<Treatment>(`${this.serverUrl}/treatment/`, treatment, this.httpOptions).pipe(
+      catchError(this.handleError<Treatment>('addTreatment'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

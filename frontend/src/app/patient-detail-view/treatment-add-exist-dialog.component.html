@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Ajouter un traitement existant au patient</h1>
+<div mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Traitements</mat-label>
+      <mat-select [(value)]="data.form.treatments" multiple>
+        <mat-option *ngFor="let treatment of data.autocompleteValues.treatments | async" [value]="treatment._id">{{treatment.text}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Anuler</button>
+  <button mat-button [mat-dialog-close]="data.form" cdkFocusInitial>
+    Ajouter 
+  </button>
+</div>

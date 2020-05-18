@@ -29,6 +29,15 @@ export interface DialogData {
   }
 }
 
+export interface DialogDataExist {
+  form: {
+    treatments: string[];
+  }
+  autocompleteValues: {
+    treatments: Observable<Treatment[]>,
+  }
+}
+
 @Component({
   selector: 'app-patient-detail-view',
   templateUrl: './patient-detail-view.component.html',
@@ -48,6 +57,7 @@ export class PatientDetailViewComponent implements OnInit {
     private route: ActivatedRoute,
     private patientService: PatientService,
     private doctorService: DoctorService,
+    private treatmentService: TreatmentService,
     public dialog: MatDialog,
   ) { }
 
@@ -84,12 +94,60 @@ export class PatientDetailViewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log(result);
+        this.treatmentService.addTreatment(result as Treatment).subscribe((treatment) => {
+          const patientUpdate = {
+            _id: this.patient?._id,
+            lastName: this.patient.lastName,
+            firstName: this.patient.firstName,
+            age: this.patient.age,
+            sex: this.patient.sex,
+            drugs: this.patient.drugs.map(x => x._id),
+            treatments: this.patient.treatments.map(x => x._id).concat(treatment._id)
+          }
+          console.log(patientUpdate)
+          this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
+            this.getPatient();
+          });
+        })
+      }
+    });
+  }
+
+  openExistDialog() {
+    const treatments = this.treatmentService.getTreatments();
+    const dialogRef = this.dialog.open(TreatmentAddExistDialog, {
+      data: {
+        form: {
+          treatments: []
+        },
+        autocompleteValues: {
+          treatments: treatments
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const patientUpdate = {
+          _id: this.patient?._id,
+          lastName: this.patient.lastName,
+          firstName: this.patient.firstName,
+          age: this.patient.age,
+          sex: this.patient.sex,
+          drugs: this.patient.drugs.map(x => x._id),
+          treatments: this.patient.treatments.map(x => x._id).concat(result.treatments)
+        }
+        console.log(patientUpdate)
+        this.patientService.updatePatient(patientUpdate as Patient).subscribe(() => {
+          this.getPatient();
+        });
       }
     });
   }
 
 }
+
+
 
 @Component({
   selector: 'treatment-add-dialog',
@@ -97,6 +155,17 @@ export class PatientDetailViewComponent implements OnInit {
 })
 export class TreatmentAddDialog {
   constructor(public dialogRef: MatDialogRef<TreatmentAddDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+}
+@Component({
+  selector: 'treatment-add-exist-dialog',
+  templateUrl: 'treatment-add-exist-dialog.component.html',
+})
+export class TreatmentAddExistDialog {
+  constructor(public dialogRef: MatDialogRef<TreatmentAddExistDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogDataExist) { }
 
   onNoClick(): void {
     this.dialogRef.close();

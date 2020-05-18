@@ -10,7 +10,7 @@
   <button (click)="openDialog()" mat-raised-button>
     Ajouter un nouveau traitement
   </button>
-  <button mat-raised-button>Ajouter un traitement existant</button>
+  <button (click)="openExistDialog()" mat-raised-button>Ajouter un traitement existant</button>
   <div class="mat-elevation-z8" *ngIf="dataSourceTreatments">
     <table mat-table [dataSource]="dataSourceTreatments">
       <!-- Position Column -->
